@@ -1,0 +1,11 @@
+{
+  "name": "jquery.thumbs.js",
+  "version": "1.0.0",
+  "description": "Add rating to page with event",
+  "main": "jquery.thumbs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kirill Malyakin",
+  "license": "MIT"
+}
