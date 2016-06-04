@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Starter Template for Bootstrap</title>
+    <title>Example use jquery.thumbs.js</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -31,15 +29,19 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 <div class="container">
     <div class="starter-template">
-        <h1>Example use jquery.thumds.js</h1>
-        <div class="js-rating" data-like="7" data-dislike="2"></div>
+        <div class="jumbotron">
+            <h1>Example use jquery.thumbs.js</h1>
+            <p>Simple jQuery plugin rating</p>
+            <h2>Simple example</h2>
+            <div class="js-rating-simple" data-like="4" data-dislike="2"></div>
+            <h2>Extended example</h2>
+            <div class="js-rating" data-like="7" data-dislike="3"></div>
+        </div>
     </div>
-
-</div><!-- /.container -->
+</div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -49,15 +51,15 @@
 <script src="../dist/jquery.thumbs.js"></script>
 <script>
     $(function () {
-//        $('.js-rating').thumbs({
-//            onLike: function () {
-//                console.log('Set like');
-//            },
-//            onDislike: function() {
-//                console.log('Set dislike')
-//            }
-//        });
-        $('.js-rating').thumbs();
+        $('.js-rating-simple').thumbs();
+        $('.js-rating').thumbs({
+            onLike: function (value) {
+                console.log('Like ' + value);
+            },
+            onDislike: function(value) {
+                console.log('Dislike ' + value)
+            }
+        });
     })
 </script>
 </body>

@@ -4,18 +4,19 @@
     var methods = {
         init: function (options) {
             return this.each(function () {
-                this.self = $(self);
-                methods.destroy.call(this.self);
+                var self = this,
+                    opt = $.extend(true, {}, $.fn.thumbs.defaults, options);
 
-                var like    = $this.data('like'),
-                    dislike = $this.data('dislike'),
-                    id      = Math.round(1E6 * Math.random()) + Date.now();
+                var like = $(self).data('like'),
+                    dislike = $(self).data('dislike'),
+                    id = Math.round(1E6 * Math.random()) + Date.now();
 
-                this.opt = $.extend(true, {}, $.fn.thumbs.defaults, options);
+                methods.destroy.call($(self));
+                methods.setLikes(opt, like);
+                methods.setDislikes(opt, dislike);
 
-
-                $this
-                    .addClass('jq-rating')
+                $(self)
+                    .addClass(opt.classCss)
                     .attr('data-id-review', id)
                     .append($('<div>').addClass('sprite sprite-fa-thumbs-up-grey'),
                         $('<div>').addClass('jq-rating-like').html(like),
@@ -23,31 +24,51 @@
                         $('<div>').addClass('jq-rating-dislike').html(dislike));
 
 
-                //$(document).on('click', '[data-id-review=' + id + '] .sprite-fa-thumbs-up-grey', function () {
-                //    if ($.isFunction(o.onLike)) {
-                //        o.onLike.call(this);
-                //    }
-                //});
-                //
-                //$(document).on('click', '[data-id-review=' + id + '] .sprite-fa-thumbs-down-grey', function () {
-                //    if ($.isFunction(o.onDislike)) {
-                //        o.onDislike.call(this);
-                //    }
-                //});
+                $(self)
+                    .find('.sprite-fa-thumbs-up-grey')
+                    .on('click', function () {
+                        var likes = methods.getLikes.call(opt);
+                        likes++;
+
+                        $(self).find('.jq-rating-like').html(likes);
+                        methods.setLikes(opt, likes);
+                        methods.getLikes.call(opt);
+                        if (typeof options !== 'undefined' && $.isFunction(options.onLike)) {
+                            options.onLike(likes);
+                        }
+                    });
+
+                $(self)
+                    .find('.sprite-fa-thumbs-down-grey')
+                    .on('click', function () {
+                        var dislikes = methods.getDislikes.call(opt);
+                        dislikes++;
+
+                        $(self).find('.jq-rating-dislike').html(dislikes);
+                        methods.setDislikes(opt, dislikes);
+                        methods.getDislikes.call(opt);
+                        if (typeof options !== 'undefined' && $.isFunction(options.onDislike)) {
+                            options.onDislike(dislikes);
+                        }
+                    });
             });
         },
-        destroy: function() {
-            return this.each(function() {
+        setLikes: function (self, value) {
+            self.likes = value;
+        },
+        setDislikes: function (self, value) {
+            self.dislikes = value;
+        },
+        getLikes: function () {
+            return this.likes;
+        },
+        getDislikes: function () {
+            return this.dislikes;
+        },
+        destroy: function () {
+            return this.each(function () {
                 var self = $(this),
-                    raw  = self.data('raw');
-
-                console.log('Destroy method');
-
-                //if (raw) {
-                //    self.off('.raty').empty().css({ cursor: raw.style.cursor }).removeData('readonly');
-                //} else {
-                //    self.data('raw', self.clone()[0]);
-                //}
+                    raw = self.data('raw');
             });
         }
     };
@@ -63,47 +84,8 @@
     };
 
     $.fn.thumbs.defaults = {
-        cancel: false
+        classCss: 'jq-rating',
+        likes: 1,
+        dislikes: 1
     };
-
-    //$.fn.extend({
-    //    thumbs: function (options) {
-    //        var defaults = {
-    //                onLike: function () {
-    //                },
-    //                onDislike: function () {
-    //                }
-    //            },
-    //            options  = $.extend(defaults, options),
-    //            o        = options;
-    //
-    //        return this.each(function () {
-    //            var $this   = $(this),
-    //                like    = $this.data('like'),
-    //                dislike = $this.data('dislike'),
-    //                id      = Math.round(1E6 * Math.random()) + Date.now();
-    //
-    //            $this
-    //                .addClass('jq-rating')
-    //                .attr('data-id-review', id)
-    //                .append($('<div>').addClass('sprite sprite-fa-thumbs-up-grey'),
-    //                    $('<div>').addClass('jq-rating-like').html(like),
-    //                    $('<div>').addClass('sprite sprite-fa-thumbs-down-grey'),
-    //                    $('<div>').addClass('jq-rating-dislike').html(dislike));
-    //
-    //
-    //            $(document).on('click', '[data-id-review=' + id + '] .sprite-fa-thumbs-up-grey', function () {
-    //                if ($.isFunction(o.onLike)) {
-    //                    o.onLike.call(this);
-    //                }
-    //            });
-    //
-    //            $(document).on('click', '[data-id-review=' + id + '] .sprite-fa-thumbs-down-grey', function () {
-    //                if ($.isFunction(o.onDislike)) {
-    //                    o.onDislike.call(this);
-    //                }
-    //            });
-    //        });
-    //    }
-    //});
 })(jQuery, window, document);
