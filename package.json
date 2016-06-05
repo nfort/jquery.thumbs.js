@@ -2,10 +2,26 @@
   "name": "jquery.thumbs.js",
   "version": "1.0.0",
   "description": "Add rating to page with event",
-  "main": "jquery.thumbs.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "dist/jquery.thumbs.js",
   "author": "Kirill Malyakin",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "jquery",
+    "js",
+    "rating",
+    "thumbs",
+    "jquery-plugin",
+    "selection"
+  ],
+  "homepage": "https://github.com/nfort/jquery.thumbs.js",
+  "maintainers": [
+    {
+      "name": "Kirill Malyakin",
+      "url": "https://blueimp.net"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:nfort/jquery.thumbs.js.git"
+  }
 }
