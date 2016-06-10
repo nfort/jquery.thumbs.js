@@ -2,6 +2,8 @@
 
 Simple jQuery plugin rating.
 
+You can see [example in action](https://cdn.rawgit.com/nfort/jquery.thumbs.js/master/example/index.html)
+
 Simple example
 
 ```
