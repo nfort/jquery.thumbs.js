@@ -5,6 +5,15 @@
 
 Simple jQuery plugin rating.
 
+## Install
+```
+$ bower i jquery.thumbs.js
+```
+or 
+```
+$ npm i jquery.thumbs.js  
+```
+
 You can see [example in action](https://cdn.rawgit.com/nfort/jquery.thumbs.js/master/example/index.html)
 
 Simple example
