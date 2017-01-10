@@ -1,6 +1,6 @@
 {
   "name": "jquery.thumbs.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Add rating to page with event",
   "main": "dist/jquery.thumbs.js",
   "author": "Kirill Malyakin",
