@@ -12,8 +12,6 @@
                     id = Math.round(1E6 * Math.random()) + Date.now();
 
                 methods.destroy.call($(self));
-                methods.setLikes(opt, like);
-                methods.setDislikes(opt, dislike);
 
                 $(self)
                     .addClass(opt.classCss)
@@ -27,12 +25,10 @@
                 $(self)
                     .find('.sprite-fa-thumbs-up-grey')
                     .on('click', function () {
-                        var likes = methods.getLikes.call(opt);
+                        var likes = methods.getLikes.call(self);
                         likes++;
 
-                        $(self).find('.jq-rating-like').html(likes);
-                        methods.setLikes(opt, likes);
-                        methods.getLikes.call(opt);
+                        methods.setLikes.call(self, likes);
                         if (typeof options !== 'undefined' && $.isFunction(options.onLike)) {
                             options.onLike(likes);
                         }
@@ -41,29 +37,29 @@
                 $(self)
                     .find('.sprite-fa-thumbs-down-grey')
                     .on('click', function () {
-                        var dislikes = methods.getDislikes.call(opt);
+                        var dislikes = methods.getDislikes.call(self);
                         dislikes++;
 
-                        $(self).find('.jq-rating-dislike').html(dislikes);
-                        methods.setDislikes(opt, dislikes);
-                        methods.getDislikes.call(opt);
+                        methods.setDislikes.call(self, dislikes);
                         if (typeof options !== 'undefined' && $.isFunction(options.onDislike)) {
                             options.onDislike(dislikes);
                         }
                     });
             });
         },
-        setLikes: function (self, value) {
-            self.likes = value;
+        setLikes: function (value) {
+            $(this).attr('data-like', value);
+            $(this).find('.jq-rating-like').html(value);
         },
-        setDislikes: function (self, value) {
-            self.dislikes = value;
+        setDislikes: function (value) {
+            $(this).attr('data-dislike', value);
+            $(this).find('.jq-rating-dislike').html(value);
         },
         getLikes: function () {
-            return this.likes;
+            return parseInt($(this).attr('data-like'));
         },
         getDislikes: function () {
-            return this.dislikes;
+            return parseInt($(this).attr('data-dislike'));
         },
         destroy: function () {
             return this.each(function () {
